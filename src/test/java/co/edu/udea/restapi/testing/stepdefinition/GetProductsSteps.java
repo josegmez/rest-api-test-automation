@@ -1,6 +1,7 @@
 package co.edu.udea.restapi.testing.stepdefinition;
 
 
+import co.edu.udea.restapi.testing.questions.ErrorMessage;
 import co.edu.udea.restapi.testing.questions.StatusCode;
 import co.edu.udea.restapi.testing.tasks.ConnectTo;
 import co.edu.udea.restapi.testing.tasks.ConsumeThe;
@@ -17,6 +18,9 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
 
 import org.hamcrest.Matchers;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GetProductsSteps {
 
@@ -35,7 +39,10 @@ public class GetProductsSteps {
 
     @When("I send a GET request to {string} with query parameters {string} set to {string} and {string} set to {string}")
     public void iSendAGETRequestToWithQueryParametersSetToAndSetTo(String arg0, String arg1, String arg2, String arg3, String arg4) {
-        user.attemptsTo(ConsumeThe.service(arg0, "GET"));
+        Map<String, String> params = new HashMap<>();
+        params.put(arg1, arg2);
+        params.put(arg3, arg4);
+        user.attemptsTo(ConsumeThe.withParams(arg0, "GET", params));
     }
 
     @Then("the response status code should be {int}")
@@ -50,6 +57,6 @@ public class GetProductsSteps {
 
     @And("the response body should contain an error message {string}")
     public void theResponseBodyShouldContainAnErrorMessage(String arg0) {
-        user.should(seeThatResponse("The response body should contain an error message", response -> response.body("error", Matchers.equalTo(arg0))));
+        user.should(seeThat("The response body should contain an error message", ErrorMessage.withExpectedMessage(arg0), Matchers.equalTo(arg0)));
     }
 }
