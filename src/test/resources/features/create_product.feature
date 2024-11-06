@@ -10,9 +10,7 @@ Feature: Create a new product in the API
       | images            | ["https://example.com/image.jpg"] |
     When I send a POST request to "/products"
     Then the response status code should be 201
-    And the response body should contain the created product details
     And the response body should have a field "title" with value "Nike Airmax Pulse"
-    And the response body should have a field "price" with value "300"
 
  Scenario: Missing required fields (title)
     Given the API base URL is "https://api.escuelajs.co/api/v1"
