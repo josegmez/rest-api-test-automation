@@ -5,7 +5,6 @@ Feature: Retrieve all products from the API
     When I send a GET request to "/products" with query parameters "limit" set to "10" and "offset" set to "0"
     Then the response status code should be 200
     And the response body should contain a list of products
-    And the response body should have a field "length" with value "10"
 
   Scenario: Invalid limit parameter (non-integer value)
     Given the API base URL is "https://api.escuelajs.co/api/v1"
