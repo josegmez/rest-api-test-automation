@@ -1,7 +1,7 @@
 Feature: Create a new product in the API
 
   Scenario: Successfully create a new product
-    Given the API base URL is "http://localhost:3001/api/v1"
+    Given the API base URL is "https://api.escuelajs.co/api/v1"
     And the request body contains the following JSON:
       """
       {
@@ -19,7 +19,7 @@ Feature: Create a new product in the API
     And the response body should have a field "price" with value "300"
 
  Scenario: Missing required fields (title)
-    Given the API base URL is "http://localhost:3001/api/v1"
+    Given the API base URL is "https://api.escuelajs.co/api/v1"
     And the request body contains the following JSON:
       """
       {
@@ -34,7 +34,7 @@ Feature: Create a new product in the API
     And the response body should contain an error message "title should not be empty"
 
   Scenario: Negative price value
-    Given the API base URL is "http://localhost:3001/api/v1"
+    Given the API base URL is "https://api.escuelajs.co/api/v1"
     And the request body contains the following JSON:
       """
       {
