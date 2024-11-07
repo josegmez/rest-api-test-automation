@@ -12,7 +12,7 @@ public class ConsumeThe implements Task {
 
     private String endpoint;
     private String httpMethod;
-    private String body;
+    private Map<String, Object> body;
     private Map<String, String> queryParams;
 
     public ConsumeThe(String endpoint, String httpMethod) {
@@ -20,11 +20,6 @@ public class ConsumeThe implements Task {
         this.httpMethod = httpMethod;
     }
 
-    public ConsumeThe(String endpoint, String httpMethod, String body) {
-        this.endpoint = endpoint;
-        this.httpMethod = httpMethod;
-        this.body = body;
-    }
 
     public ConsumeThe(String endpoint, String httpMethod, Map<String, String> queryParams) {
         this.endpoint = endpoint;
@@ -32,7 +27,7 @@ public class ConsumeThe implements Task {
         this.queryParams = queryParams;
     }
 
-    public ConsumeThe(String endpoint, String httpMethod, String body, Map<String, String> queryParams) {
+    public ConsumeThe(String endpoint, String httpMethod,  Map<String, Object> body, Map<String, String> queryParams) {
         this.endpoint = endpoint;
         this.httpMethod = httpMethod;
         this.body = body;
@@ -75,8 +70,8 @@ public class ConsumeThe implements Task {
         return Tasks.instrumented(ConsumeThe.class, endpoint, httpMethod, body, queryParams);
     }
 
-    public static ConsumeThe withBody(String endpoint, String httpMethod, String body) {
-        return Tasks.instrumented(ConsumeThe.class, endpoint, httpMethod, body);
+    public static ConsumeThe withBody(String endpoint, String httpMethod, Map<String, Object> body) {
+        return Tasks.instrumented(ConsumeThe.class, endpoint, httpMethod, body, null);
     }
 
 }
