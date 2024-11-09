@@ -2,9 +2,9 @@ Feature: Retrieve a product by ID from the API
 
   Scenario: Get product by valid ID
     Given the API base URL is "https://api.escuelajs.co/api/v1"
-    When I send a GET request to "/products/2"
+    When I send a GET request to "/products/11"
     Then the response status code should be 200
-    And the response body should have a field "id" with value 2
+    And the response body should have a field "id" with value 11
 
   Scenario: Product ID not found
     Given the API base URL is "https://api.escuelajs.co/api/v1"

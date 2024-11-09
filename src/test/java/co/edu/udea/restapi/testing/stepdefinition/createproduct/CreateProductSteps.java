@@ -1,5 +1,4 @@
-package co.edu.udea.restapi.testing.stepdefinition;
-
+package co.edu.udea.restapi.testing.stepdefinition.createproduct;
 
 import co.edu.udea.restapi.testing.questions.ErrorMessage;
 import co.edu.udea.restapi.testing.questions.StatusCode;
@@ -14,17 +13,16 @@ import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
-
-import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
-
 import org.hamcrest.Matchers;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StepDefinitions {
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
+
+public class CreateProductSteps {
 
     private Map<String, Object> requestBody;
 
@@ -55,11 +53,6 @@ public class StepDefinitions {
         user.attemptsTo(ConsumeThe.withBody(arg0, "POST", this.requestBody));
     }
 
-    @When("I send a GET request to {string}")
-    public void iSendAGETRequestTo(String arg0) {
-        user.attemptsTo(ConsumeThe.service(arg0, "GET"));
-    }
-
     @Then("the response status code should be {int}")
     public void theResponseStatusCodeShouldBe(int arg0) {
         user.should(seeThat("The response code is " + arg0, StatusCode.status(), Matchers.equalTo(arg0)));
@@ -67,25 +60,12 @@ public class StepDefinitions {
 
     @And("the response body should have a field {string} with value {string}")
     public void theResponseBodyShouldHaveAFieldWithStringValue(String field, String value) {
-        user.should(seeThatResponse("the response body should have a field"+field, response -> response.body(field, Matchers.equalTo(value))));
+        user.should(seeThatResponse("the response body should have a field" + field, response -> response.body(field, Matchers.equalTo(value))));
     }
 
     @And("the response body should have a field {string} with value {int}")
     public void theResponseBodyShouldHaveAFieldWithIntValue(String field, int value) {
-        user.should(seeThatResponse("the response body should have a field"+field, response -> response.body(field, Matchers.equalTo(value))));
-    }
-
-    @When("I send a GET request to {string} with query parameters {string} set to {string} and {string} set to {string}")
-    public void iSendAGETRequestToWithQueryParametersSetToAndSetTo(String arg0, String arg1, String arg2, String arg3, String arg4) {
-        Map<String, String> params = new HashMap<>();
-        params.put(arg1, arg2);
-        params.put(arg3, arg4);
-        user.attemptsTo(ConsumeThe.withParams(arg0, "GET", params));
-    }
-
-    @And("the response body should contain a list of products")
-    public void theResponseBodyShouldContainAListOfProducts() {
-        user.should(seeThatResponse("The response body should contain a list of products", response -> response.body("data", Matchers.notNullValue())));
+        user.should(seeThatResponse("the response body should have a field" + field, response -> response.body(field, Matchers.equalTo(value))));
     }
 
     @And("the response body should contain an error message {string}")
