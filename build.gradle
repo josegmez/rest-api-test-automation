@@ -16,7 +16,7 @@ plugins {
     id 'idea'
 }
 
-defaultTasks 'clean','test','aggregate'
+defaultTasks 'clean', 'test', 'aggregate'
 apply plugin: 'net.serenity-bdd.serenity-gradle-plugin'
 
 group = 'co.edu.udea.restapi.testing'
@@ -53,12 +53,12 @@ dependencies {
 
     //Lombok dependencies
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    annotationProcessor  "org.projectlombok:lombok:${lombokVersion}"
-    testCompileOnly  "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
 
     //Additional library
     implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.12.0'
-
+    implementation "com.google.code.gson:gson:2.8.9"
 }
 
 serenity {
