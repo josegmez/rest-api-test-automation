@@ -1,6 +1,7 @@
 package co.edu.udea.restapi.testing.tasks;
 
 
+import io.restassured.http.ContentType;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
@@ -10,8 +11,8 @@ import java.util.Map;
 
 public class ConsumeThe implements Task {
 
-    private String endpoint;
-    private String httpMethod;
+    private final String endpoint;
+    private final String httpMethod;
     private Map<String, Object> body;
     private Map<String, String> queryParams;
 
@@ -20,14 +21,13 @@ public class ConsumeThe implements Task {
         this.httpMethod = httpMethod;
     }
 
-
     public ConsumeThe(String endpoint, String httpMethod, Map<String, String> queryParams) {
         this.endpoint = endpoint;
         this.httpMethod = httpMethod;
         this.queryParams = queryParams;
     }
 
-    public ConsumeThe(String endpoint, String httpMethod,  Map<String, Object> body, Map<String, String> queryParams) {
+    public ConsumeThe(String endpoint, String httpMethod, Map<String, Object> body, Map<String, String> queryParams) {
         this.endpoint = endpoint;
         this.httpMethod = httpMethod;
         this.body = body;
@@ -45,13 +45,20 @@ public class ConsumeThe implements Task {
                 }
                 break;
             case "POST":
-                actor.attemptsTo(Post.to(endpoint).with(request -> request.header("Content-Type", "application/json").body(body)));
+                actor.attemptsTo(
+                        Post.to(endpoint)
+                                .with(request -> request
+                                        .contentType(ContentType.JSON)
+                                        .body(body)
+                                        .relaxedHTTPSValidation()
+                                )
+                );
                 break;
             case "PUT":
-                actor.attemptsTo(Put.to(endpoint).with(request -> request.header("Content-Type", "application/json")));
+                actor.attemptsTo(Put.to(endpoint).with(request -> request.contentType(ContentType.JSON).body(body)));
                 break;
             case "DELETE":
-                actor.attemptsTo(Delete.from(endpoint).with(request -> request.header("Content-Type", "application/json")));
+                actor.attemptsTo(Delete.from(endpoint).with(request -> request.contentType(ContentType.JSON)));
                 break;
             default:
                 throw new IllegalArgumentException("Not supported method " + httpMethod);
