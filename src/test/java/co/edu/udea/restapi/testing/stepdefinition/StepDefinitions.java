@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GetProductsSteps {
+public class StepDefinitions {
 
     private Map<String, Object> requestBody;
 
